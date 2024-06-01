@@ -1,4 +1,7 @@
-﻿namespace ProyectoFinal
+﻿using static ProyectoFinal.Program;
+using System.Net;
+
+namespace ProyectoFinal
 {
     internal class Program
     {
@@ -163,9 +166,46 @@
         }
 
         // MODIFICAR ALUMNOOOO
-        static void ModificarAlumno()
+        static void ModificarAlumno(List<Alumno> listaAlumnos)
         {
+            int dniIngresado;
+            do
+            {
+                Console.WriteLine("Ingrese el dni del alumno que quiere modificar");
+            } while (!int.TryParse(Console.ReadLine(), out dniIngresado));
+            if (listaAlumnos.Exists(alumno => alumno.dni == dniIngresado))
+            {
+                for (int i = 0; i < listaAlumnos.Count; i++)
+                {
+                    if (listaAlumnos[i].dni == dniIngresado)
+                    {
+                        Alumno alumnoModificado = listaAlumnos[i];
+                        Console.WriteLine("Ingrese nombre del alumno");
+                        alumnoModificado.nombre = Console.ReadLine();
+                        Console.WriteLine("Ingrese apellido del alumno");
+                        alumnoModificado.apellido = Console.ReadLine();
+                        int dni;
+                        do
+                        {
+                            Console.WriteLine("Ingrese DNI");
+                        } while (!int.TryParse(Console.ReadLine(), out dni));
+                        alumnoModificado.dni = dni;
+                        Console.WriteLine("Ingrese fecha de nacimiento en el formato dd/mm/yy");
+                        alumnoModificado.fechaNacimiento = Console.ReadLine();
+                        Console.WriteLine("Ingrese domicilio");
+                        alumnoModificado.domicilio = Console.ReadLine();
 
+                        listaAlumnos[i] = alumnoModificado;
+                        Console.WriteLine("Alumno modificado correctamente");
+                        Console.WriteLine();
+                    }
+                }
+                EscribirAlumnoEnArchivo(listaAlumnos, false);
+            }
+            else
+            {
+                Console.WriteLine("No se encontro ningun alumno con ese dni");
+            }
         }
 
 
@@ -196,7 +236,7 @@
                 {
                     Alumno nuevoAlumno = new Alumno();
                     AltaAlumno(ref nuevoAlumno);
-                    List<Alumno> listaAlumnos = new List<Alumno> { nuevoAlumno };
+
 
                 }
                 else if (opcion == "2")
@@ -205,7 +245,8 @@
                 }
                 else if (opcion == "3")
                 {
-                    Console.WriteLine("Modificacion");
+                    List<Alumno> listaAlumnos = TraerAlumnosDeArchivo(alumnosPath);
+                    ModificarAlumno(listaAlumnos);
                 }
                 else if (opcion == "4")
                 {
