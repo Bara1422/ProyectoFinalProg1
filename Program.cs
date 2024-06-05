@@ -1,6 +1,4 @@
-﻿//sing static ProyectoProg1.Program;
-
-using ProyectoFinalProg1;
+﻿using static ProyectoProg1.Program;
 
 namespace ProyectoProg1
 {
@@ -214,6 +212,7 @@ namespace ProyectoProg1
                                 Alumno al = listita[i];
                                 al.estaActivo = true;
                                 listita[i] = al;
+                                Console.Clear();
                                 Console.WriteLine("Alumno activado correctamente");
                             }
                             EscribirAlumnoEnArchivo(listita, false);
@@ -340,6 +339,7 @@ namespace ProyectoProg1
                         alumnoModificado.fechaNacimiento = fechaValida("de nacimiento");
                         alumnoModificado.domicilio = stringValido("Ingrese domicilio");
                         listaAlumnos[i] = alumnoModificado;
+                        Console.Clear();
                         Console.WriteLine("Alumno modificado correctamente");
                         Console.WriteLine();
                     }
@@ -495,7 +495,7 @@ namespace ProyectoProg1
                 materia.nombreMateria = nombreMateria;
                 materia.estaActiva = true;
                 listaMateriasVacia.Add(materia);
-                Console.WriteLine();
+                Console.Clear();
                 Console.WriteLine($"Materia ingresada correctamente con el indice {materia.indice}");
                 EscribirMateriaEnArchivo(listaMateriasVacia, true);
             }
@@ -689,7 +689,6 @@ namespace ProyectoProg1
                 indiceInscripcion = 0;
             }
 
-            AlumnoHelper.Hola();
             if (listaAlumnos.Exists(alumno => alumno.dni == dniIngresado))
             {
                 for (int i = 0; i < listaAlumnos.Count; i++)
